@@ -82,6 +82,10 @@ Lists all project dependencies, scripts, and project metadata.
 README.md
 Documentation explaining project setup, API endpoints, features, and usage instructions.
 
+.gitignore
+Unnecessary files will be automatically ignored.
+
+
 ## 🎯 Features
 - CRUD operations on tasks(Create, Read, Update, Delete)
 - Input validation using Joi
@@ -134,44 +138,165 @@ The server runs at:
 7. Filter Tasks by Status (GET /tasks?status=completed)
 
 
-## 🧪 Example API Requests
+## 🚀 Example API Requests
+Postman and cURL commands to test all API endpoints for Task Management System:
 
-### Create a Task
+1. 📩 Create a New Task (POST /tasks)
+✅ POST http://localhost:5000/tasks
+
+Body (raw → JSON):
 ```bash
-POST /tasks
-Content-Type: application/json
-
+json
 {
-  "title": "Complete NodeJS Assignment",
+  "title": "Finish Node.js Assignment",
+  "status": "pending"
+}
+```
+cURL:
+```bash
+bash
+curl --request POST 'http://localhost:5000/tasks' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "title": "Finish Node.js Assignment",
+  "status": "pending"
+}'
+```
+✅ Expected Response:
+```bash
+json
+{
+  "id": "generated-uuid",
+  "title": "Finish Node.js Assignment",
   "status": "pending"
 }
 ```
 
-### Get All Tasks (with Pagination)
+2. 📄 Get All Tasks (GET /tasks)
+✅ GET http://localhost:5000/tasks
+cURL:
 ```bash
-GET /tasks?page=1&limit=5
+bash
+curl --request GET 'http://localhost:5000/tasks'
 ```
-
-### Get Tasks by Status
+✅ Expected Response:
 ```bash
-GET /tasks?status=completed
+json
+{
+  "total": 1,
+  "page": 1,
+  "limit": 10,
+  "tasks": [
+    {
+      "id": "generated-uuid",
+      "title": "Finish Node.js Assignment",
+      "status": "pending"
+    }
+  ]
+}
 ```
+3. 🔎 Get Single Task by ID (GET /tasks/:id)
+✅ GET http://localhost:5000/tasks/{id}
 
-### Update a Task
+Replace {id} with the actual ID you got from create response.
+
+Example cURL:
 ```bash
-PUT /tasks/:id
-Content-Type: application/json
+bash
+curl --request GET 'http://localhost:5000/tasks/4c8a331b-535d-44ef-87da-0de1c7f4d6f5'
+```
+✅ Expected Response:
+```bash
+json
+{
+  "id": "4c8a331b-535d-44ef-87da-0de1c7f4d6f5",
+  "title": "Finish Node.js Assignment",
+  "status": "pending"
+}
+```
+4. ✏️ Update a Task (PUT /tasks/:id)
+✅ PUT http://localhost:5000/tasks/{id}
 
+Body (raw → JSON):
+```bash
+json
 {
   "status": "completed"
 }
 ```
-
-### Delete a Task
+cURL:
 ```bash
-DELETE /tasks/:id
+bash
+curl --request PUT 'http://localhost:5000/tasks/4c8a331b-535d-44ef-87da-0de1c7f4d6f5' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "status": "completed"
+}'
+```
+✅ Expected Response:
+```bash
+json
+{
+  "id": "4c8a331b-535d-44ef-87da-0de1c7f4d6f5",
+  "title": "Finish Node.js Assignment",
+  "status": "completed"
+}
 ```
 
+5. 🗑️ Delete a Task (DELETE /tasks/:id)
+✅ DELETE http://localhost:5000/tasks/{id}
+
+Example cURL:
+```bash
+bash
+curl --request DELETE 'http://localhost:5000/tasks/4c8a331b-535d-44ef-87da-0de1c7f4d6f5'
+```
+✅ Expected Response:
+```bash
+204 No Content
+6. 📚 Get Tasks with Pagination
+✅ GET http://localhost:5000/tasks?page=2&limit=5
+```
+
+Example cURL:
+```bash
+curl --request GET 'http://localhost:5000/tasks?page=2&limit=5'
+```
+✅ Expected Response:
+```bash
+json
+{
+  "total": 12,
+  "page": 2,
+  "limit": 5,
+  "tasks": [
+    { "id": "id6", "title": "Task 6", "status": "pending" },
+    { "id": "id7", "title": "Task 7", "status": "completed" },
+    ...
+  ]
+}
+```
+7. 📋 Filter Tasks by Status
+✅ GET http://localhost:5000/tasks?status=completed
+
+Example cURL:
+```bash
+bash
+curl --request GET 'http://localhost:5000/tasks?status=completed'
+```
+✅ Expected Response:
+```bash
+json
+{
+  "total": 5,
+  "page": 1,
+  "limit": 10,
+  "tasks": [
+    { "id": "id2", "title": "Task 2", "status": "completed" },
+    ...
+  ]
+}
+```
 
 ## 📝 Validation Rules
 - `title`: required, must be a string
