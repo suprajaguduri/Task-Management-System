@@ -1,22 +1,3 @@
-# Task Management System
-
-## Setup
-
-1. Clone the repo
-2. Run `npm install`
-3. Start server: `npm start`
-
-## API Endpoints
-
-- `GET /tasks` - list all tasks
-- `GET /tasks/:id` - get task by ID
-- `POST /tasks` - create task
-- `PUT /tasks/:id` - update task
-- `DELETE /tasks/:id` - delete task
-
-Use Postman or cURL to test.
-
-
 
 # 📋 Task Management System
 
@@ -29,7 +10,7 @@ Includes features like CRUD operations,input validation, pagination, filtering, 
 
 ```
 task-manager/
-├─ controllers/
+├─  controllers/
 │   └── taskController.js
 ├── services/
 │   └── taskService.js
@@ -146,7 +127,6 @@ DELETE /tasks/:id
 You can test using:
 - Postman
 - cURL
-- Any API client tool
 
 Example Postman requests are given above (refer to full request samples).
 
