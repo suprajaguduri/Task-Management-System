@@ -73,7 +73,7 @@ taskValidation.js: Defines Joi schemas for validating task creation and updating
 tasks.json
 Local JSON file acting as the in-memory database to store all tasks.
 
-server.js
+app.js
 Entry point of the application. Sets up Express app, applies middlewares, and mounts the routes.
 
 package.json
